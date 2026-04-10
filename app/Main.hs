@@ -19,5 +19,8 @@ getIters c = steps
       where
         newZ = z * z + c
 
+grayscale :: Int -> Int
+grayscale iters = round ((255 / fromIntegral maxIters) * fromIntegral iters)
+
 main :: IO ()
-main = print (getIters (coordToComplex 0 0))
+main = print (grayscale(getIters ((-0.75) :+ 0.1)))
