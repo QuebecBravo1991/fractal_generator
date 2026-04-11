@@ -4,10 +4,10 @@ import Codec.Picture
 import Data.Complex
 
 outputWidth :: Int
-outputWidth = 800
+outputWidth = 800 * 3
 
 outputHeight :: Int
-outputHeight = 600
+outputHeight = 600 * 3
 
 windowStartX :: Double
 windowStartX = -2.5
@@ -25,8 +25,8 @@ maxIters :: Int
 maxIters = 1000
 
 coordToComplex :: Int -> Int -> Complex Double
-coordToComplex x y = result 
-  where 
+coordToComplex x y = result
+  where
     result = x' :+ y'
     x' = windowStartX + (fromIntegral x / fromIntegral outputWidth) * (windowEndX - windowStartX)
     y' = windowStartY + (fromIntegral y / fromIntegral outputHeight) * (windowEndY - windowStartY)
@@ -43,7 +43,16 @@ getIters c = steps
         newZ = z * z + c
 
 grayscale :: Int -> Int
-grayscale iters = round ((255 / fromIntegral maxIters) * fromIntegral iters)
+grayscale iters = 255 - round (255 * (fromIntegral iters / fromIntegral maxIters))
+
+getPixelColor :: Int -> Int -> PixelRGB8
+getPixelColor x y = result
+  where
+    result = PixelRGB8 (fromIntegral v) (fromIntegral v) (fromIntegral v)
+    v = grayscale (getIters (coordToComplex x y))
+
+genImage :: Int -> Int -> Image PixelRGB8
+genImage = generateImage getPixelColor
 
 main :: IO ()
-main = print (coordToComplex 0 0)
+main = writePng "output.png" (genImage outputWidth outputWidth)
