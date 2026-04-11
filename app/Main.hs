@@ -1,12 +1,35 @@
 module Main (main) where
 
+import Codec.Picture
 import Data.Complex
+
+outputWidth :: Int
+outputWidth = 800
+
+outputHeight :: Int
+outputHeight = 600
+
+windowStartX :: Double
+windowStartX = -2.5
+
+windowEndX :: Double
+windowEndX = 1.0
+
+windowStartY :: Double
+windowStartY = -1.2
+
+windowEndY :: Double
+windowEndY = 1.2
 
 maxIters :: Int
 maxIters = 1000
 
 coordToComplex :: Int -> Int -> Complex Double
-coordToComplex x y = fromIntegral x :+ fromIntegral y
+coordToComplex x y = result 
+  where 
+    result = x' :+ y'
+    x' = windowStartX + (fromIntegral x / fromIntegral outputWidth) * (windowEndX - windowStartX)
+    y' = windowStartY + (fromIntegral y / fromIntegral outputHeight) * (windowEndY - windowStartY)
 
 getIters :: Complex Double -> Int
 getIters c = steps
@@ -23,4 +46,4 @@ grayscale :: Int -> Int
 grayscale iters = round ((255 / fromIntegral maxIters) * fromIntegral iters)
 
 main :: IO ()
-main = print (grayscale(getIters ((-0.75) :+ 0.1)))
+main = print (coordToComplex 0 0)

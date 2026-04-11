@@ -68,7 +68,9 @@ executable fractal-generator
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.18.2.1
+    build-depends:    
+        base ^>=4.18.2.1,
+        JuicyPixels
 
     -- Directories containing source files.
     hs-source-dirs:   app

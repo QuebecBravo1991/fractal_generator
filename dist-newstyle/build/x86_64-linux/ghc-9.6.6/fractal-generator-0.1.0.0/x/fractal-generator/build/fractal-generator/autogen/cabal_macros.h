@@ -10,6 +10,16 @@
   (major1) == 0 && (major2) <  1 || \
   (major1) == 0 && (major2) == 1 && (minor) <= 0)
 #endif /* MIN_VERSION_fractal_generator */
+/* package JuicyPixels-3.3.9 */
+#ifndef VERSION_JuicyPixels
+#define VERSION_JuicyPixels "3.3.9"
+#endif /* VERSION_JuicyPixels */
+#ifndef MIN_VERSION_JuicyPixels
+#define MIN_VERSION_JuicyPixels(major1,major2,minor) (\
+  (major1) <  3 || \
+  (major1) == 3 && (major2) <  3 || \
+  (major1) == 3 && (major2) == 3 && (minor) <= 9)
+#endif /* MIN_VERSION_JuicyPixels */
 /* package base-4.18.2.1 */
 #ifndef VERSION_base
 #define VERSION_base "4.18.2.1"
